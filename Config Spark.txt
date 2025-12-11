@@ -1,0 +1,78 @@
+root@GERARD:~# tar -xvf spark-4.0.1-bin-hadoop3.tgz
+
+root@GERARD:~# export SPARK_HOME=/root/spark-4.0.1-bin-hadoop3
+export PATH=$PATH:$SPARK_HOME/bin
+export PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.9.7-src.zip:$PYTHONPATH
+export PATH=$SPARK_HOME/python:$PATH
+root@GERARD:~# pyspark
+Python 3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+WARNING: Using incubator modules: jdk.incubator.vector
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+25/10/21 23:19:53 WARN Utils: Your hostname, GERARD, resolves to a loopback address: 127.0.1.1; using 10.255.255.254 instead (on interface lo)
+25/10/21 23:19:53 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+25/10/21 23:19:54 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /__ / .__/\_,_/_/ /_/\_\   version 4.0.1
+      /_/
+
+Using Python version 3.12.3 (main, Aug 14 2025 17:47:21)
+Spark context Web UI available at http://10.255.255.254:4040
+Spark context available as 'sc' (master = local[*], app id = local-1761081595145).
+SparkSession available as 'spark'.
+>>> exit
+Use exit() or Ctrl-D (i.e. EOF) to exit
+>>> quit
+Use quit() or Ctrl-D (i.e. EOF) to exit
+>>>
+Traceback (most recent call last):
+  File "/root/spark-4.0.1-bin-hadoop3/python/pyspark/core/context.py", line 390, in signal_handler
+    raise KeyboardInterrupt()
+KeyboardInterrupt
+>>> 1+2
+3
+>>> exit()
+root@GERARD:~#
+
+========= 22/10/2025 ====================
+logData = sc.textFile(logFile).cache() # Load the data with SparkContext
+numAs = logData.filter(lambda s: 'a' in s).count() # from the data, compare each element in s to 'a', if match--> count
+numBs = logData.filter(lambda s: 'b' in s).count() # from the data, compare each element in s to 'b', if match--> count
+print(f"Lines with a: {numAs}, lines with b: {numBs}") # Print results
+
+========= 24/10/2025 ==========
+config:
+-----------------------------
+export SPARK_HOME=/root/spark-4.0.1-bin-hadoop3
+export PATH=$PATH:$SPARK_HOME/bin
+export PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.9.7-src.zip:$PYTHONPATH
+export PATH=$SPARK_HOME/python:$PATH
+-----------------------------
+
+# enter in "/root/spark-4.0.1-bin-hadoop3", create file count and run it.
+cd /root/spark-4.0.1-bin-hadoop3
+nano count.py
+spark-submit count.py
+
+============= 27/10/2025 ==============
+config jupyter pyspark
+--------------------
+
+root@GERARD:~# apt install python3.12-venv -y
+root@GERARD:~# python3 -m venv pyspark_env
+root@GERARD:~# source pyspark_env/bin/activate
+(pyspark_env) root@GERARD:~# pip install pyspark jupyter findspark
+(pyspark_env) root@GERARD:~# jupyter notebook --allow-root
+
+----------------------------- Package nécessaires ------------------
+!pip install scipy pandas polars matplotlib seaborn plotly bokeh altair scikit-learn xgboost lightgbm catboost tensorflow keras torch torchvision torchaudio \
+statsmodels sympy mpmath numba networkx pingouin patsy optuna mlxtend imbalanced-learn category_encoders missingno jupyter lab ipykernel tqdm joblib shap lime fastai pytorch-lightning \
+onnx onnxruntime dash streamlit openpyxl pyarrow
+--------------------------------------------------------------------------------------------
+
